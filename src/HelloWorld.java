@@ -144,6 +144,22 @@ public class HelloWorld {
 
             System.out.println();
 
+            AutoFun car3 = new AutoFun();
+            // Смотрим начальные значения
+            System.out.println("Модель: " + car3.getModel());       // bmw
+            System.out.println("Мощность: " + car3.getPower());     // 250
+            System.out.println("Цвет: " + car3.getColor());         // black
+            // Меняем значения через сеттеры
+            car3.setModel("audi");
+            car3.setPower(300);
+            car3.setColor("red");
+            // Проверяем, что изменилось
+            System.out.println("\nПосле изменений");
+            System.out.println("Модель: " + car3.getModel());        // audi
+            System.out.println("Мощность: " + car3.getPower());      // 300
+            System.out.println("Цвет: " + car3.getColor());          // red
+
+            System.out.println();
         }
 }
 
@@ -263,5 +279,44 @@ class Auto {
     // Метод, который выводит сохранённый текст
     void showDescription() {
         System.out.println(description);
+    }
+}
+
+class AutoFun {
+    // Скрытые переменные (инкапсуляция)
+    private String model = "bmw";
+    private int power = 250;
+    private String color = "black";
+
+    // --- Геттеры (методы для получения значений) ---
+    public String getModel(){
+        return model;
+    }
+
+    public int getPower(){
+        return power;
+    }
+
+    public String getColor(){
+        return color;
+    }
+
+    // --- Сеттеры (методы для изменения значений) ---
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setPower(int power) {
+        // Можно добавить проверку, чтобы мощность не была отрицательной
+        if(power >=0) {
+            this.power = power;
+        } else {
+            System.out.println("Ошибка: мощность не может быть отрицательной.");
+        }
+
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
