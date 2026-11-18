@@ -160,6 +160,18 @@ public class HelloWorld {
             System.out.println("Цвет: " + car3.getColor());          // red
 
             System.out.println();
+
+            Qa qaEngineer = new Qa("Марина");
+            qaEngineer.sleep();
+            qaEngineer.drink();
+            qaEngineer.run();
+
+            System.out.println();
+
+            qaEngineer.testing();
+            qaEngineer.flooding();
+
+            System.out.println();
         }
 }
 
@@ -318,5 +330,41 @@ class AutoFun {
 
     public void setColor(String color) {
         this.color = color;
+    }
+}
+
+class People {
+    protected String name;
+    
+    public People (String name) {
+        this.name = name;
+    }
+
+    public void sleep() {
+        System.out.println(name + " спит");
+    }
+
+    public void drink() {
+        System.out.println(name + " пьет");
+    }
+
+    public void run() {
+        System.out.println(name + " бежит");
+    }
+}
+
+
+class Qa extends People {
+
+    public Qa (String name) {
+        super (name);
+    }
+
+    public void testing() {
+        System.out.println(name + " проводит тестирование");
+    }
+
+    public void flooding() {
+        System.out.println(name + " проводит нагрузочное тестирование");
     }
 }
