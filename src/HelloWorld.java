@@ -172,6 +172,17 @@ public class HelloWorld {
             qaEngineer.flooding();
 
             System.out.println();
+            PeopleMen person1 = new PeopleMen();
+            person1.sleep();        // Вывод: Я сплю
+            person1.drinkCoffe();   // Вывод: Я пью кофе
+
+            System.out.println();
+
+            QaChel qaEngineer1 = new QaChel();
+            qaEngineer1.sleep();        // Вывод: Я сплю (унаследован от PeopleMen)
+            qaEngineer1.drinkCoffe();   // Вывод: Я пью очень много кофе (переопределён в QaChel)
+
+            System.out.println();
         }
 }
 
@@ -366,5 +377,24 @@ class Qa extends People {
 
     public void flooding() {
         System.out.println(name + " проводит нагрузочное тестирование");
+    }
+}
+
+class PeopleMen {
+    public void sleep() {
+        System.out.println("Я сплю");
+    }
+
+    public void drinkCoffe() {
+        System.out.println("Я пью кофе");
+    }
+}
+
+class QaChel extends PeopleMen {
+    // Переопределяем метод: теперь при вызове drinkCoffe() у объекта Qa
+    // сработает именно эта версия метода
+    //@Override;
+    public void drinkCoffe() {
+        System.out.println("Я пью очень много кофе");
     }
 }
