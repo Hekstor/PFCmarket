@@ -183,6 +183,14 @@ public class HelloWorld {
             qaEngineer1.drinkCoffe();   // Вывод: Я пью очень много кофе (переопределён в QaChel)
 
             System.out.println();
+
+            QaGreat qa = new QaGreat();
+            qa.testing("Проверить авторизацию");
+            qa.testing("Проверить авторизацию", "Проверить регистрацию");
+            qa.testing("Проверить авторизацию", "Проверить регистрацию", "Проверить восстановление пароля");
+            qa.testing("Задание 1", "Задание 2", "Задание 3", "Задание 4");
+
+            System.out.println();
         }
 }
 
@@ -396,5 +404,31 @@ class QaChel extends PeopleMen {
     //@Override;
     public void drinkCoffe() {
         System.out.println("Я пью очень много кофе");
+    }
+}
+
+class QaGreat {
+    public void testing(String... tasks) {
+        int count = tasks.length;
+
+        if(count == 0){
+            System.out.println("Нет заданий");
+            return;
+        }
+
+        switch (count) {
+            case 1:
+                System.out.println("Получено 1 задание: " + tasks[0]);
+                break;
+            case 2:
+                System.out.println("Получено 2 задания: " + tasks[0] + tasks[1]);
+                break;
+            case 3:
+                System.out.println("Получено 3 задания: " + tasks[0] + tasks[1] + tasks[2]);
+                break;
+            default:
+                System.out.println("Слишком много заданий: можно передать максимум 3");
+                break;
+        }
     }
 }
