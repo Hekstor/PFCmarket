@@ -401,10 +401,15 @@ class PeopleMen {
 class QaChel extends PeopleMen {
     // Переопределяем метод: теперь при вызове drinkCoffe() у объекта Qa
     // сработает именно эта версия метода
-    //@Override;
+
+    @Override
     public void drinkCoffe() {
         System.out.println("Я пью очень много кофе");
     }
+
+//    public void drinkCoffe() {
+//        System.out.println("Я пью очень много кофе");
+//    }
 }
 
 class QaGreat {
