@@ -191,6 +191,17 @@ public class HelloWorld {
             qa.testing("Задание 1", "Задание 2", "Задание 3", "Задание 4");
 
             System.out.println();
+
+//            Check check = new Check();
+//
+//            check.checkValue();
+
+//            try {
+//                check.checkValue();
+//            } catch (IllegalArgumentException f) {
+//                System.err.println("Ошибка: " + f.getMessage());
+//            }
+            System.out.println();
         }
 }
 
@@ -437,3 +448,29 @@ class QaGreat {
         }
     }
 }
+
+//class Check {
+//    public void checkValue() {
+//        Scanner scanner = new Scanner(System.in);
+//
+//        System.out.print("Введите первое число: ");
+//        int a = scanner.nextInt();
+//
+//        System.out.print("Введите второе число: ");
+//        int b = scanner.nextInt();
+//
+//        // Проверка на одинаковые числа — выбрасываем исключение
+//        if (a == b) {
+//            throw new IllegalArgumentException("Ввод двух одинаковых чисел запрещен");
+//        }
+//
+//        // Сравнение чисел
+//        if (a > b) {
+//            System.out.println("Первое число больше второго");
+//        } else {
+//            System.out.println("Второе число больше первого");
+//        }
+//
+//        scanner.close();
+//    }
+//}
