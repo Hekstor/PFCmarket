@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class HelloWorld {
         public static void main(String[] args) {
@@ -201,7 +202,44 @@ public class HelloWorld {
 //            } catch (IllegalArgumentException f) {
 //                System.err.println("Ошибка: " + f.getMessage());
 //            }
+//            System.out.println();
+
+//            //LinkedList
+//            Iterator<String> it = list.iterator();
+//            while(it.hasNext()) {
+//                if (condition(it.next())) {
+//                    it.remove(); // O(1), потому что итератор уже держит ссылку на текущий узел
+//                }
             System.out.println();
+
+            PhoneBook book = new PhoneBook();
+
+            // Добавляем контакты
+            book.add(new Contact("Алексей", "+7-900-111-22-33"));
+            book.add(new Contact("Марина", "+7-900-222-33-44"));
+            book.add(new Contact("Иван", "+7-900-333-44-55"));
+            book.add(new Contact("Ольга", "+7-900-444-55-66"));
+
+            System.out.println("Все контакты:");
+            book.printAll();
+
+            // Поиск
+            System.out.println("\nПоиск Марина:");
+            Contact found = book.findByName("Марина");
+            System.out.println(found != null ? found : "Не найден");
+
+            // Вставка в середину (например, на позицию 2)
+            book.addAt(2, new Contact("Пётр", "+7-900-555-66-77"));
+            System.out.println("\nПосле вставки Петра на позицию 2:");
+            book.printAll();
+
+            // Изменение телефона
+            book.updatePhone("Иван", "+7-900-999-88-77");
+
+            // Удаление
+            book.removeByName("Ольга");
+            System.out.println("\nПосле удаления Ольги и смены телефона Ивана:");
+            book.printAll();
         }
 }
 
@@ -474,3 +512,91 @@ class QaGreat {
 //        scanner.close();
 //    }
 //}
+
+// Класс контакта: имя и телефон
+class Contact {
+    private String name;
+    private String phone;
+
+    public Contact(String name, String phone) {
+        this.name = name;
+        this.phone = phone;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return name + " - " + phone;
+    }
+}
+
+// Телефонный справочник
+class PhoneBook {
+    private ArrayList<Contact> contacts = new ArrayList<>();
+
+    // 1. Добавление контакта (вставка в конец — быстрое, O(1))
+    public void add(Contact c) {
+        contacts.add(c);
+    }
+
+    // 1а. Вставка в конкретную позицию (O(n) — сдвиг элементов после index)
+    public void addAt(int index, Contact c) {
+        if (index >= 0 && index <= contacts.size()) {
+            contacts.add(index, c);
+        } else {
+            System.out.println("Неверный индекс: " + index);
+        }
+    }
+
+    // 2. Поиск по имени (линейный поиск, O(n))
+    public Contact findByName(String name) {
+        for (Contact c : contacts) {
+            if (c.getName().equalsIgnoreCase(name)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    // 3. Удаление по имени (O(n): поиск + сдвиг элементов)
+    public boolean removeByName(String name) {
+        for (int i = 0; i < contacts.size(); i++) {
+            if (contacts.get(i).getName().equalsIgnoreCase(name)) {
+                contacts.remove(i); // ArrayList сам сдвинет остальные элементы влево
+                return true;
+            }
+        }
+        return false; //контакта нет
+    }
+
+    // 4. Изменение телефона (сначала находим, потом меняем)
+    public boolean updatePhone(String name, String newPhone) {
+        Contact c = findByName(name);
+        if (c != null) {
+            c.setPhone(newPhone);
+            return true;
+        }
+        return false;
+    }
+
+    // 5. Печать всего справочника
+    public void printAll() {
+        if (contacts.isEmpty()) {
+            System.out.println("Справочник пуст.");
+            return;
+        }
+        for (int i = 0; i < contacts.size(); i++) {
+            System.out.println(i + ": " + contacts.get(i));
+        }
+    }
+}
