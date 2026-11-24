@@ -242,6 +242,35 @@ public class HelloWorld {
 //            System.out.println("\nПосле удаления Ольги и смены телефона Ивана:");
 //            book.printAll();
             System.out.println();
+            PhoneBook book = new PhoneBook();
+            book.add(new Contact("Алексей", "+7-900-111-22-33"));
+            book.add(new Contact("Марина", "+7-900-222-33-44"));
+            book.add(new Contact("Иван", "+7-900-333-44-55"));
+            book.add(new Contact("Ольга", "+7-900-444-55-66"));
+
+            System.out.println("Все контакты:");
+            book.printAll();
+
+            // Мгновенный поиск через HashMap
+            System.out.println("\nПоиск <Марина:>");
+            Contact found = book.findByName("Марина");
+            System.out.println(found != null ? found : "Не найден");
+
+            // Вставка в середину
+            book.addAt(2, new Contact("Петр", "+7-900-555-66-77"));
+            System.out.println("\nПосле вставки Петра на позицию 2:");
+            book.printAll();
+
+            // Смена телефона — объект общий для обеих структур, менять надо один раз
+            book.updatePhone("Иван", "+7-900-999-88-77");
+
+            // Удаление
+            book.removeByName("Ольга");
+            System.out.println("\nПосле удаления Ольги и смены телефона Ивана:");
+            book.printAll();
+
+            // Попытка добавить дубликат
+            book.add(new Contact("Марина", "+7-900-000-00-00"));
         }
 }
 
@@ -649,4 +678,55 @@ class PhoneBook {
     }
 
     // 2. Поиск по имени: теперь O(1), вместо перебора всего списка
+    public Contact findByName(String name) {
+        return indexByName.get(name); // null, если не найден
+    }
+
+    // 3. Вставка в конкретную позицию: O(n), но с защитой от дублей
+    public boolean addAt(int index, Contact c) {
+        if (index < 0 || index > contacts.size()) {
+            System.out.println("Неверный индекс: " + index);
+            return false;
+        }
+        if (indexByName.containsKey(c.getName())) {
+            System.out.println("Контакт <" +  c.getName() + "> уже есть в справочнике.");
+            return false;
+        }
+        contacts.add(index, c);
+        indexByName.put(c.getName(), c);
+        return true;
+    }
+
+    // 4. Удаление по имени: находим мгновенно через HashMap,
+    //    потом удаляем из ArrayList (поиск индекса — O(n), сдвиг — O(n))
+    public boolean removeByName(String name) {
+        Contact c = indexByName.remove(name); // удаляем из HashMap и сразу получаем объект
+        if (c == null) {
+            return false; // такого контакта нет
+        }
+        contacts.remove(c); // ArrayList найдёт объект по equals и сдвинет остаток влево
+        return true;
+    }
+
+    // 5. Изменение телефона: контакт находим за O(1),
+    //    менять ничего в структурах не нужно — объект один и тот же в обеих
+    public boolean updatePhone(String name, String newPhone) {
+        Contact c = indexByName.get(name);
+        if (c == null) {
+            return false;
+        }
+        c.setPhone(newPhone);
+        return true;
+    }
+
+    // 6. Печать всего справочника в порядке добавления
+    public void printAll() {
+        if (contacts.isEmpty()) {
+            System.out.println("Справочник пуст.");
+            return;
+        }
+        for (int i = 0; i < contacts.size(); i++) {
+            System.out.println(i + ": " + contacts.get(i));
+        }
+    }
 }
