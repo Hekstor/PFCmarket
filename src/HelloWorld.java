@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class HelloWorld {
         public static void main(String[] args) {
@@ -271,6 +273,32 @@ public class HelloWorld {
 
             // Попытка добавить дубликат
             book.add(new Contact("Марина", "+7-900-000-00-00"));
+
+            System.out.println();
+
+            // Создаём мапу: ключ — String, значение — список строк
+            Map<String, List<String>> authorsMap = new HashMap<>();
+
+            // Создаём список авторов
+            List<String> authors = new ArrayList<>();
+            authors.add("Tolstoy");
+            authors.add("Chehov");
+            authors.add("Pushkin");
+
+            // Кладем список в мапу под ключом "Author"
+            authorsMap.put("Author", authors);
+
+            // Достаём список из мапы
+            List<String> list = authorsMap.get("Author");
+
+            // Проверяем, что список не null и в нём есть хотя бы 2 элемента (чтобы не было ошибки)
+            if (list != null && list.size() >= 2) {
+                // Второй элемент — это индекс 1 (индексация с 0)
+                String secondAuthor = list.get(1);
+                System.out.println("Второй автор: " + secondAuthor);
+            } else {
+                System.out.println("Недостаточно данных для получения второго элемента.");
+            }
         }
 }
 
