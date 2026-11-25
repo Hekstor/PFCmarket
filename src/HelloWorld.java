@@ -299,6 +299,10 @@ public class HelloWorld {
             } else {
                 System.out.println("Недостаточно данных для получения второго элемента.");
             }
+            System.out.println();
+
+            UniqueNumbers unique = new UniqueNumbers();
+            unique.readAndPrintUnique();
         }
 }
 
@@ -758,3 +762,43 @@ class PhoneBook {
         }
     }
 }
+
+//public class UniqueNumbers {
+//    public static void readAndPrintUnique() {
+//        Scanner scanner = new Scanner(System.in);
+//        int[] numbers = new int[5];
+//
+//        System.out.println("Введите 5 целых чисел:");
+//        for (int i = 0; i < 5; i++) {
+//            while (!scanner.hasNextInt()) {
+//                System.out.print("Это не число, попробуйте еще раз: ");
+//                scanner.next(); // пропускаем неверный ввод
+//            }
+//            numbers[i] = scanner.nextInt();
+//        }
+//
+//        // Подсчитаем, сколько раз встречается каждое число
+//        Map<Integer, Integer> counts = new HashMap<>();
+//        for (int num : numbers) {
+//            counts.put(num, counts.getOrDefault(num, 0) + 1);
+//        }
+//
+//        // Выводим только те, что встретились ровно 1 раз
+//        System.out.print("Неповторяющиеся значения: ");
+//        boolean found = false;
+//        for (int num : numbers) {
+//            if (counts.get(num) == 1) {
+//                System.out.print(num + " ");
+//                found = true;
+//            }
+//        }
+//
+//        if (ifound) {
+//            System.out.print("Нет повторяющихся значений");
+//        }
+//
+//        System.out.println();
+//
+//        scanner.close();
+//    }
+//}
